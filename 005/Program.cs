@@ -1,128 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 
 class Program
 {
     static void Main()
     {
-        Point[] ArrayOfPoint = new Point[4];
+        Point[] pointArray = new Point[4]
         {
-            new Point()
-            {
-                X = 5,
-                Y = 6,
-                NameOfPoint = "Nikita"
-            };
-            new Point()
-            {
-                X = 2,
-                Y = 8,
-                NameOfPoint = "Spasibo"
-            };
-            new Point()
-            {
-                X = 1,
-                Y = 5,
-                NameOfPoint = "ZA"
-            };
-            new Point()
-            {
-                X = 8,
-                Y = 6,
-                NameOfPoint = "KOD"
-            };
+            new Point(){X = 5,Y = 3, NameOfPoint = "A" },
+            new Point(){X = 5,Y = 3, NameOfPoint = "B" },
+            new Point(){X = 5,Y = 3, NameOfPoint = "C" },
+            new Point(){X = 5,Y = 3, NameOfPoint = "D" }
+        };
+        Figure figure1 = new Figure(pointArray[0], pointArray[1], pointArray[2]);
+        double sumTriangle = figure1.Perimeter();
+        Console.WriteLine("Sum triangle = {0}", sumTriangle);
 
-            Figure Figura = new Figure(ArrayOfPoint[0], ArrayOfPoint[1], ArrayOfPoint[2]);
-            double resultFigura = Figura.CalculatePerimetrOfFigure();
-            Console.WriteLine("Perimetr of triangle = {0}", resultFigura);
-            Figure Figura1 = new Figure(ArrayOfPoint[0], ArrayOfPoint[1], ArrayOfPoint[2]);
-            double resultFigura1 = Figura.CalculatePerimetrOfFigure();
-            Console.WriteLine("Perimetr of square = {0}", resultFigura1);
-        }
+        Figure figure2 = new Figure(pointArray[0], pointArray[1], pointArray[2], pointArray[3]);
+        double sumQuadrate = figure2.Perimeter();
+        Console.WriteLine("Sum quadrate = {0}", sumQuadrate);
     }
 }
+
+
 class Point
 {
-    private int x;
-    private int y;
-    private string nameOfPoint;
-
-    public int X
-    {
-        set
-        {
-            x = value;
-        }
-        get
-        {
-            return x;
-        }
-    }
-    public int Y
-    {
-        set
-        {
-            y = value;
-        }
-        get
-        {
-            return y;
-        }
-    }
-    public string NameOfPoint
-    {
-        set
-        {
-            nameOfPoint = value;
-        }
-        get
-        {
-            return nameOfPoint;
-        }
-    }
+    public int X { get; set; }
+    public int Y { get; set; }
+    public string NameOfPoint{ get; set; }
+    // тут надо создать конструктор для иници... но я такой бля зачем если в мейне можно...
 }
 class Figure
 {
-    public Point[] ArrayPoint { get; set; }
-    public string nameOfFigure; 
+    public Point[] arrayOfPoints { get; set; }
+    private string nameOfFigure = string.Empty;
 
-    public Figure(Point a, Point b, Point c)
+    public Figure(Point A, Point B, Point C)
     {
-        Point[] arrayPoint = new Point[3];
-        arrayPoint[0] = a;
-        arrayPoint[1] = b;
-        arrayPoint[2] = c;
+        arrayOfPoints = new Point[3];
+        arrayOfPoints[0] = A;
+        arrayOfPoints[1] = B;
+        arrayOfPoints[2] = C;
     }
-    public Figure(Point a, Point b, Point c, Point d)
+    public Figure(Point A, Point B, Point C,Point D)
     {
-        Point[] arrayPoint = new Point[3];
-        arrayPoint[0] = a;
-        arrayPoint[1] = b;
-        arrayPoint[2] = c;
-        arrayPoint[3] = d;
+        arrayOfPoints = new Point[4];
+        arrayOfPoints[0] = A;
+        arrayOfPoints[1] = B;
+        arrayOfPoints[2] = C;
+        arrayOfPoints[3] = D;
     }
-    public double CalculateFigurelength(Point side1, Point side2)
+    public double CalculateSideOfFigure(Point sideA,Point sideB)
     {
-        double figureLength = Math.Sqrt(Math.Pow(side1.X - side2.X, 2) + Math.Pow(side1.Y - side2.Y, 2));
-        return figureLength;
+        double sideLenght = Math.Sqrt(Math.Pow(sideB.X - sideA.X, 2) + Math.Pow(sideB.Y - sideA.Y, 2));
+        return sideLenght;
     }
-    public double CalculatePerimetrOfFigure()
+    public double Perimeter()
     {
         double sum = 0;
-        for (int i = 0; i < ArrayPoint.Length - 1; i++)
+        for (int i = 0; i < arrayOfPoints.Length - 1; i++)
         {
             if (i == 0)
             {
-                sum += CalculateFigurelength(ArrayPoint[ArrayPoint.Length - 1], ArrayPoint[0]);
+                sum+= CalculateSideOfFigure(arrayOfPoints[arrayOfPoints.Length - 1],arrayOfPoints[0]);
             }
-
-            sum += CalculateFigurelength(ArrayPoint[i], ArrayPoint[i + 1]);
+            sum += CalculateSideOfFigure(arrayOfPoints[i], arrayOfPoints[i + 1]);
         }
         return sum;
     }
 }
 
-// я не знаю как это пофиксить, код отказывается работать, думал на этим минут 30...
 
 
 /*
@@ -130,8 +78,8 @@ class Figure
   координатной прямой рис №1. В теле класса создайте следующие закрытые поля: целочисленное 
   поле для описания координаты точки X и целочисленное поле для описания координаты точки 
   Y, а также строковое поле для имени точки. Создать три свойства с методами доступа get и 
-  set, а также конструктор класса, который будет инициализировать данные поля значениями 
-  аргументов. 
+  set, ????а также конструктор класса, который будет инициализировать данные поля значениями 
+  аргументов. ???
 
   Далее создайте класс «Фигура». В теле класса фигура создайте одно поле типа масив 
   «Точек» и одно строкове поле для имени фигуры и 2 конструктора, которые принимают 3
