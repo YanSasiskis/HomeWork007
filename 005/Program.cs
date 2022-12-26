@@ -8,10 +8,10 @@ class Program
     {
         Point[] pointArray = new Point[4]
         {
-            new Point(){X = 5,Y = 3, NameOfPoint = "A" },
-            new Point(){X = 5,Y = 3, NameOfPoint = "B" },
-            new Point(){X = 5,Y = 3, NameOfPoint = "C" },
-            new Point(){X = 5,Y = 3, NameOfPoint = "D" }
+            new Point(){X = 1,Y = 4, NameOfPoint = "A" },
+            new Point(){X = 2,Y = 6, NameOfPoint = "B" },
+            new Point(){X = 2,Y = 2, NameOfPoint = "C" },
+            new Point(){X = 4,Y = 1, NameOfPoint = "D" }
         };
         Figure figure1 = new Figure(pointArray[0], pointArray[1], pointArray[2]);
         double sumTriangle = figure1.Perimeter();
@@ -26,8 +26,8 @@ class Program
 
 class Point
 {
-    public int X { get; set; }
-    public int Y { get; set; }
+    public double X { get; set; }
+    public double Y { get; set; }
     public string NameOfPoint{ get; set; }
     // тут надо создать конструктор для иници... но я такой бля зачем если в мейне можно...
 }
@@ -53,7 +53,7 @@ class Figure
     }
     public double CalculateSideOfFigure(Point sideA,Point sideB)
     {
-        double sideLenght = Math.Sqrt(Math.Pow(sideB.X - sideA.X, 2) + Math.Pow(sideB.Y - sideA.Y, 2));
+        double sideLenght = (Math.Pow(sideB.X - sideA.X, 2) + Math.Pow(sideB.Y - sideA.Y, 2));
         return sideLenght;
     }
     public double Perimeter()
